@@ -114,11 +114,17 @@ var btn = document.getElementById("addTaskButton");
 
 var span = document.getElementsByClassName("close")[0];
 
+var closeBtn = document.getElementById("btn");
+ 
 btn.onclick = function() {
   modal.style.display = "block";
 }
 
 span.onclick = function() {
+  modal.style.display = "none";
+}
+
+closeBtn.onclick = function() {
   modal.style.display = "none";
 }
 
