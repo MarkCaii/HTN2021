@@ -28,6 +28,8 @@
   text-align: center;
   padding-top: 75px;
   padding-bottom: 50px;
+  text-align: center;
+  margin: auto;
 }
 .todo-list {
   margin: 20px 0;
