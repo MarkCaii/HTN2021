@@ -18,6 +18,7 @@
 
 .butt{
   background-color: white;
+  color: black;
   padding: 15px 70px;
   font-size:16px;
 }
@@ -220,6 +221,7 @@ button {
     margin-right: 5px;
   }
 }
+
 button[disabled] {
   color: $c-gray !important;
   background: #fff !important;

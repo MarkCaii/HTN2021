@@ -1,6 +1,7 @@
 var state = [];
 let Events = [];
 
+
 // function setDefaultState() {
 //   var id = generateID();
 //   var baseState = {};
@@ -17,8 +18,8 @@ function setDefaultState() {
   var baseState = {};
   baseState[id] = {
     title: "Example Task",
-    hours: "2",
-    priority: "high",
+    hours: 2,
+    priority: 1,
     id: id,
   };
   syncState(baseState);
@@ -148,9 +149,7 @@ function addItem(text, hours, priority, id) {
     $(".todo-list li").removeClass("animated flipInX");
   }, 500);
 
-  if (!noUpdate) {
-    pushToState(text, hours, priority, id);
-  }
+  pushToState(text, hours, priority, id);
 }
 
 function refresh() {
@@ -178,6 +177,8 @@ var span = document.getElementsByClassName("close")[0];
 
 var closeBtn = document.getElementById("btn");
 
+var sortBtn = document.getElementById("showCalendar");
+
 btn.onclick = function () {
   modal.style.display = "block";
 }
@@ -186,15 +187,84 @@ span.onclick = function () {
   modal.style.display = "none";
 }
 
+sortBtn.onclick = function () {
+  
+  bubbleSort(Events, Events.length)
+  var date = new Date();
+  var options = { hour12: false };
+  var dd = String(date.getDate()).padStart(2, '0');
+  var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = String(date.getFullYear());
+  var currentTime = 8;
+  // console.log(date.toLocaleTimeString());
+  // console.log(date.toLocaleDateString());
+  // console.log(mm+dd+yyyy);
+  // console.log(date.getHours());
+  Events.forEach(element => {
+    var temp = parseInt(currentTime)
+
+    var temp2 = parseInt(temp) + parseInt(element.HOURS);
+    var event = {
+      'summary': element.EVENT,
+      'start':{
+        // 'dateTime': '2021-09-19T09:00:00-07:00',
+        // 'timeZone': 'America/Los_Angeles',
+        'dateTime': yyyy+'-'+mm+'-'+dd+'T'+String(temp).padStart(2,'0')+':'+'00:00-04:00',
+      },
+      'end': {
+        // 'dateTime': '2021-09-19T17:00:00-07:00',
+        // 'timeZone': 'America/Los_Angeles',
+        'dateTime': yyyy+'-'+mm+'-'+dd+'T'+String(temp2).padStart(2,'0')+':'+'00:00-04:00',
+      },
+    };
+    currentTime = parseInt(temp2)
+    var request = gapi.client.calendar.events.insert({
+      'calendarId': 'rvu049umttfa8spbg8n5mumtkk@group.calendar.google.com',
+      'resource': event
+    });
+
+    request.execute(function(event) {
+      appendPre('Event created: ' + event.summary);
+    });
+  });
+    // var event = {
+    //   'summary': 'Google I/O 2015',
+    //   'start': {
+    //     'dateTime': '2021-09-19T09:00:00-07:00',
+    //     'timeZone': 'America/Los_Angeles'
+    //   },
+    //   'end': {
+    //     'dateTime': '2021-09-19T17:00:00-07:00',
+    //     'timeZone': 'America/Los_Angeles'
+    //   },
+    //   'reminders': {
+    //     'useDefault': false,
+    //     'overrides': [
+    //       {'method': 'email', 'minutes': 24 * 60},
+    //       {'method': 'popup', 'minutes': 10}
+    //     ]
+    //   }
+    // };
+    // var request = gapi.client.calendar.events.insert({
+    //   'calendarId': 'primary',
+    //   'resource': event
+    // });
+
+    // request.execute(function(event) {
+    //   appendPre('Event created: ' + event.summary);
+    // });
+}
+
 closeBtn.onclick = function () {
+
   let task = {
     id: Date.now(),
     EVENT: document.getElementById('event').value,
     HOURS: document.getElementById('time').value,
     PRIORITY: document.getElementById('priorities').value
   }
-  Events.push(task);
-  document.forms[0].reset();
+  Events[task.id] = task
+  Events.push(task)
   let pre = document.querySelector('#msg pre');
   var string = ''
   Events.forEach(element => {
@@ -210,6 +280,7 @@ closeBtn.onclick = function () {
   var title = document.getElementById("event").value
   var hours = document.getElementById("time").value
   var priority = document.getElementById("priorities").value
+  document.forms[0].reset();
   addItem(title, hours, priority)
 }
 
@@ -334,3 +405,25 @@ $(document).ready(function () {
     addItem(todo.title, todo.hours, todo.priority, todo.id);
   });
 });
+
+function swap(arr, xp, yp)
+{
+    var temp = arr[xp];
+    arr[xp] = arr[yp];
+    arr[yp] = temp;
+}
+// An optimized version of Bubble Sort
+function bubbleSort( arr, n)
+{
+var i, j;
+for (i = 0; i < n-1; i++)
+{
+    for (j = 0; j < n-i-1; j++)
+    {
+        if (arr[j].PRIORITY < arr[j+1].PRIORITY)
+        {
+        swap(arr,j,j+1);
+        }
+    }
+}
+}
