@@ -122,8 +122,63 @@
                   <div class="add-control">
                      <div class="form-group has-feedback">
                         <!-- <input type="text" class="form-control" placeholder="✍️ Add item..." /> -->
+<<<<<<< HEAD
                         <button id="addTaskButton" class="form-control">✍️ Add item</button>
                         <i class="fa fa-plus form-control-feedback add-btn" title="Add item"></i>
+=======
+
+                        <!-- HERE -->
+                        <form>
+                           <div class="formBox">
+
+                              <label for="event" class="labell">Event</label>
+                              <input type="text" id="event" placeholder="Event" />
+                           </div>
+                           <div class="formBox">
+                              <label for="time" class="labell">Time</label>
+                              <input type="number" id="time" placeholder="Time in Hours" />
+                           </div>
+                           <div class="formBox">
+                              <button id="btn" class="butt">Click to Add</button>
+                           </div>
+                           <div id="msg">
+                              <pre class="beat"></pre>
+                           </div>
+
+                        </form>
+                        <script>
+                           let Events = [];
+                           // example {id:1592304983049, title: 'Deadpool', year: 2015}
+                           const addEvents = (ev) => {
+                              ev.preventDefault();  //to stop the form submitting
+
+                              let movie = {
+                                 id: Date.now(),
+                                 EVENT: document.getElementById('event').value,
+                                 HOURS: document.getElementById('time').value
+                              }
+                              Events.push(movie);
+                              document.forms[0].reset(); // to clear the form for the next entries
+                              //document.querySelector('form').reset();
+
+                              //for display purposes only
+                              console.warn('added', { Events });
+                              let pre = document.querySelector('#msg pre');
+                              pre.textContent = '\n' + 'Event Name: ' + movie.EVENT + '\n' + 'Number of Hours: ' + movie.HOURS;
+                              //pre.textContent = '\n' + JSON.stringify(Events, '\t', 2);
+
+
+                              //saving to localStorage
+                              localStorage.setItem('MyMovieList', JSON.stringify(Events));
+                           }
+                           document.addEventListener('DOMContentLoaded', () => {
+                              document.getElementById('btn').addEventListener('click', addEvents);
+                           });
+                        </script>
+                        <!-- HERE -->
+                        <!-- <button class="form-control">✍️ Add item</button> -->
+                        <!-- <i class="fa fa-plus form-control-feedback add-btn" title="Add item"></i> -->
+>>>>>>> cafd6c3e0e40016643954f37c67682e451b03e71
                      </div>
                   </div>
                   <p class="err text-danger text-center hidden"><i class="fa fa-warning"></i> Oops! Please, enter name
