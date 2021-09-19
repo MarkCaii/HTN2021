@@ -120,11 +120,19 @@ function getState() {
 
 function addItem(text, hours, priority, id) {
   var id = id ? id : generateID();
+  var strPriority = '';
+  if(parseInt(priority) == 2){
+    strPriority = 'high';
+  } else if(parseInt(priority) == 1){
+    strPriority = 'medium';
+  } else {
+    strPriority = 'low'
+  }
   var item =
     '<li data-id="' +
     id +
     '"><div class="task"><span class="close"><i class="fa fa-times"></i></span><label>' +
-    text + ' ' + hours + ' ' + priority +
+    text + ' for ' + hours + ' hours, ' + strPriority + ' priority'
     "</label></div></li>";
 
   var isError = $(".form-control").hasClass("hidden");
@@ -196,10 +204,6 @@ sortBtn.onclick = function () {
   var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
   var yyyy = String(date.getFullYear());
   var currentTime = 8;
-  // console.log(date.toLocaleTimeString());
-  // console.log(date.toLocaleDateString());
-  // console.log(mm+dd+yyyy);
-  // console.log(date.getHours());
   Events.forEach(element => {
     var temp = parseInt(currentTime)
 
@@ -207,53 +211,28 @@ sortBtn.onclick = function () {
     var event = {
       'summary': element.EVENT,
       'start':{
-        // 'dateTime': '2021-09-19T09:00:00-07:00',
-        // 'timeZone': 'America/Los_Angeles',
         'dateTime': yyyy+'-'+mm+'-'+dd+'T'+String(temp).padStart(2,'0')+':'+'00:00-04:00',
       },
       'end': {
-        // 'dateTime': '2021-09-19T17:00:00-07:00',
-        // 'timeZone': 'America/Los_Angeles',
         'dateTime': yyyy+'-'+mm+'-'+dd+'T'+String(temp2).padStart(2,'0')+':'+'00:00-04:00',
       },
     };
     currentTime = parseInt(temp2)
     var request = gapi.client.calendar.events.insert({
-      'calendarId': 'rvu049umttfa8spbg8n5mumtkk@group.calendar.google.com',
+      'calendarId': 'primary',
       'resource': event
     });
 
-    request.execute(function(event) {
-      appendPre('Event created: ' + event.summary);
-    });
-  });
-  location.reload();
-    // var event = {
-    //   'summary': 'Google I/O 2015',
-    //   'start': {
-    //     'dateTime': '2021-09-19T09:00:00-07:00',
-    //     'timeZone': 'America/Los_Angeles'
-    //   },
-    //   'end': {
-    //     'dateTime': '2021-09-19T17:00:00-07:00',
-    //     'timeZone': 'America/Los_Angeles'
-    //   },
-    //   'reminders': {
-    //     'useDefault': false,
-    //     'overrides': [
-    //       {'method': 'email', 'minutes': 24 * 60},
-    //       {'method': 'popup', 'minutes': 10}
-    //     ]
-    //   }
-    // };
-    // var request = gapi.client.calendar.events.insert({
-    //   'calendarId': 'primary',
-    //   'resource': event
-    // });
+    console.log("Sending request");
 
-    // request.execute(function(event) {
-    //   appendPre('Event created: ' + event.summary);
-    // });
+    request.execute(function(event) {
+      // appendPre('Event created: ' + event.summary);
+    });
+
+    console.log("Sent request" + gapi.client.calendar.events);
+  });
+
+  // location.reload();
 }
 
 closeBtn.onclick = function () {
@@ -330,7 +309,7 @@ $(function () {
       .parent();
 
     if ($(".todo-list li").length == 1) {
-      box.removeClass("animated flipInX").addClass("animated                bounceOutLeft");
+      box.removeClass("animated flipInX").addClass("animated bounceOutLeft");
       setTimeout(function () {
         box.remove();
         $(".no-items").removeClass("hidden");

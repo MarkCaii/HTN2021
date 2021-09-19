@@ -3,7 +3,7 @@
 
 <head>
    <meta charset="UTF-8">
-   <title>CodePen - Todost - Todo</title>
+   <title>Schedule Master</title>
    <link rel="stylesheet" type="text/css" href="./public/style.css">
 
 </head>
@@ -13,7 +13,6 @@
    <html lang="en">
 
    <head>
-      <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-57635392-5"></script> -->
       <script>
          window.dataLayer = window.dataLayer || [];
          function gtag() { dataLayer.push(arguments); }
@@ -24,7 +23,7 @@
       <title>Todost ✍️</title>
       <meta name="viewport" content="height=device-height, initial-scale=1, user-scalable=no">
       <meta name="description"
-         content="Todost - Beautiful Todo list to uses 🍪 to track your tasks ! Made with ❤️ by Quentin Colus" />
+         content="Schedule Master is a web application built to create a schedule for your personalized needs." />
       <link rel="shortcut icon" href="todost.png">
       <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
       <meta charset="UTF-8">
@@ -37,6 +36,8 @@
 
    </head>
 
+
+   <!-- Code for Image at the top of the page -->
    <body>
       <div class="logo">
          <svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -126,8 +127,7 @@
                         </br>
                      </div>
                   </div>
-                  <p class="err text-danger text-center hidden"><i class="fa fa-warning"></i> Oops! Please, enter name
-                     item</p>
+                  
                   <p class="no-items text-muted text-center hidden"><i class="fa fa-ban"></i></p>
                   <ul class="todo-list">
                   </ul>
@@ -144,13 +144,10 @@
                   <div class="modal-body">
                      <form>
                         <div class="formBox">
-
-                           <label for="event" class="labell">Event</label>
-                           <input type="text" id="event" placeholder="Event" />
+                           <input type="text" id="event" placeholder="Event"/>
                         </div>
                         <div class="formBox">
-                           <label for="time" class="labell">Time</label>
-                           <input type="number" id="time" placeholder="Time in Hours" />
+                           <input type="number" id="time" placeholder="Time in Hours"/>
                         </div>
                         <div class="formBox">
                            <form action="/action_page.php">
@@ -160,7 +157,6 @@
                                  <option value=1>Medium</option>
                                  <option value=0>Low</option>
                               </select>
-                              <br><br>
                            </form>
                         </div>
                         <div class="formBox">
@@ -177,13 +173,19 @@
          <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
          <script src='http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
          <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
+
+         
          <div class="container">
-            <p>Google Calendar API Quickstart</p>
-            <button id="showCalendar">View Schedule</button>
-            <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=America%2FToronto&src=cnZ1MDQ5dW10dGZhOHNwYmc4bjVtdW10a2tAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&src=ZW4uY2FuYWRpYW4jaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%237CB342&color=%230B8043&mode=WEEK" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
-            <!--Add buttons to initiate auth sequence and sign out-->
-            <button id="authorize_button" style="display: none;">Authorize</button>
-            <button id="signout_button" style="display: none;">Sign Out</button>
+            <div>
+               <p>Google Calendar Preview</p>
+               <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=America%2FToronto&src=cnZ1MDQ5dW10dGZhOHNwYmc4bjVtdW10a2tAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&src=ZW4uY2FuYWRpYW4jaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%237CB342&color=%230B8043&mode=WEEK" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+            </div>
+            <div>
+               <button id="showCalendar" class="showCalendarButton">View Schedule</button>
+               <!--Add buttons to initiate auth sequence and sign out-->
+               <button id="authorize_button" class="showCalendarButton">Authorize</button>
+               <button id="signout_button" class="showCalendarButton">Sign Out</button>            
+            </div>
                   
          </div>
          <script type="text/javascript">
@@ -259,83 +261,7 @@
              */
             function handleSignoutClick(event) {
               gapi.auth2.getAuthInstance().signOut();
-            }
-      
-            /**
-             * Append a pre element to the body containing the given message
-             * as its text node. Used to display the results of the API call.
-             *
-             * @param {string} message Text to be placed in pre element.
-             */
-            function appendPre(message) {
-              var pre = document.getElementById('content');
-              var textContent = document.createTextNode(message + '\n');
-              pre.appendChild(textContent);
-            }
-      
-            /**
-             * Print the summary and start datetime/date of the next ten events in
-             * the authorized user's calendar. If no events are found an
-             * appropriate message is printed.
-             */
-            function listUpcomingEvents() {
-              gapi.client.calendar.events.list({
-                'calendarId': 'primary',
-                'timeMin': (new Date()).toISOString(),
-                'showDeleted': false,
-                'singleEvents': true,
-                'maxResults': 10,
-                'orderBy': 'startTime'
-              }).then(function(response) {
-                var events = response.result.items;
-                appendPre('Upcoming events:');
-      
-                if (events.length > 0) {
-                  for (i = 0; i < events.length; i++) {
-                    var event = events[i];
-                    var when = event.start.dateTime;
-                    if (!when) {
-                      when = event.start.date;
-                    }
-                    appendPre(event.summary + ' (' + when + ')')
-                  }
-                } else {
-                  appendPre('No upcoming events found.');
-                }
-              });
-            }
-            function addEvent() {
-              var event = {
-                'summary': 'Google I/O 2015',
-                'start': {
-                  'dateTime': '2021-09-19T09:00:00-07:00',
-                  'timeZone': 'America/Los_Angeles'
-                },
-                'end': {
-                  'dateTime': '2021-09-19T17:00:00-07:00',
-                  'timeZone': 'America/Los_Angeles'
-                },
-                'recurrence': [
-                  'RRULE:FREQ=DAILY;COUNT=5'
-                ],
-                'reminders': {
-                  'useDefault': false,
-                  'overrides': [
-                    {'method': 'email', 'minutes': 24 * 60},
-                    {'method': 'popup', 'minutes': 10}
-                  ]
-                }
-              };
-              var request = gapi.client.calendar.events.insert({
-                'calendarId': 'primary',
-                'resource': event
-              });
-      
-              request.execute(function(event) {
-                appendPre('Event created: ' + event.summary);
-              });
-            }
-      
+            }  
           </script>
           <script async defer src="https://apis.google.com/js/api.js"
             onload="this.onload=function(){};handleClientLoad()"

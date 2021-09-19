@@ -19,11 +19,13 @@
 .butt{
   background-color: white;
   color: black;
-  padding: 15px 70px;
+  padding: 4px 50px;
   font-size:16px;
 }
 
 .container {
+  margin:auto;
+  text-align: center;
   padding-top: 75px;
   padding-bottom: 50px;
 }
@@ -110,7 +112,7 @@
   margin-top: 20px;
   position: relative;
 }
-.add-control .form-control {
+.add-control .infoFormContainer-control {
   padding-right: 25px;
 }
 .add-control .refresh {
@@ -325,14 +327,16 @@ a:focus, a:hover {
 }
 
 .infoFormContainer{
+  vertical-align: center;
   display: none; /* Hidden by default */
   align-items: center;
+  text-align: center;
   justify-content: center;
   position: fixed;
   z-index: 1; /* Sit on top */
-  left: 25%;
-  top: 0;
-  width: 50%; /* Full width */
+  left: 0%;
+  top: 0%;
+  width: 100%; /* Full width */
   height: 100%; /* Full height */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   -webkit-animation-name: fadeIn; /* Fade in the background */
@@ -342,21 +346,22 @@ a:focus, a:hover {
 }
 
 .infoForm {
-  top: 0;
+  padding-left: 42%;
+  text-align: center;
+  top: 50%;
   left: 25%;
-  width: 100%;
-  max-height: 100%;
+  width: 400px;
 }
 
   /* Modal Content */
   .modal-content {
-    /* bottom: 0; */
+    background-color: #fff; /* Black w/ opacity */
+    padding-left: 20%;
+    text-align: center;
+    top: 50%;
+    left: 25%;
+    width: 300px;
     background-color: #fefefe;
-    /* width: 100%; */
-    /* -webkit-animation-name: slideIn;
-    -webkit-animation-duration: 0.4s;
-    animation-name: slideIn;
-    animation-duration: 0.4s */
   }
 
 .modal-header {
@@ -365,7 +370,7 @@ a:focus, a:hover {
   color: white;
 }
 
-.modal-body {padding: 2px 16px;}
+.modal-body {padding: 8px 16px;}
 
 /* The Close Button */
 .close {
@@ -453,4 +458,14 @@ svg {
   color: white;
   text-align:center;
   opacity: 80%;
+}
+
+.showCalendarButton{
+  text-align: center;
+  margin: auto;
+  padding: 12px;
+}
+
+.formBox{
+  padding: 4px;
 }
