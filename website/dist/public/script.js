@@ -227,6 +227,7 @@ sortBtn.onclick = function () {
       appendPre('Event created: ' + event.summary);
     });
   });
+  location.reload();
     // var event = {
     //   'summary': 'Google I/O 2015',
     //   'start': {

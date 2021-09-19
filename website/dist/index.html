@@ -130,9 +130,6 @@
                         <!-- HERE -->
                         <!-- <button class="form-control">✍️ Add item</button> -->
                         <!-- <i class="fa fa-plus form-control-feedback add-btn" title="Add item"></i> -->
-                        <div id="msg">
-                           <pre class="beat"></pre>
-                        </div>
                      </div>
                   </div>
                   <p class="err text-danger text-center hidden"><i class="fa fa-warning"></i> Oops! Please, enter name
@@ -220,6 +217,7 @@
          <div class="container">
             <p>Google Calendar API Quickstart</p>
             <button id="showCalendar">View Schedule</button>
+            <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=America%2FToronto&src=cnZ1MDQ5dW10dGZhOHNwYmc4bjVtdW10a2tAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&src=ZW4uY2FuYWRpYW4jaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%237CB342&color=%230B8043&mode=WEEK" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
             <!--Add buttons to initiate auth sequence and sign out-->
             <button id="authorize_button" style="display: none;">Authorize</button>
             <button id="signout_button" style="display: none;">Sign Out</button>
@@ -382,11 +380,6 @@
             onreadystatechange="if (this.readyState === 'complete') this.onload()">
           </script>
       </body>
-      <div class="footer">
-         <h4>
-            FOOTER
-         </h4>
-      </div>
    </body>
    <!-- partial -->
    <script src="./public/script.js"></script>
