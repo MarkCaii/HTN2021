@@ -257,7 +257,6 @@ sortBtn.onclick = function () {
 }
 
 closeBtn.onclick = function () {
-
   let task = {
     id: Date.now(),
     EVENT: document.getElementById('event').value,
@@ -266,14 +265,14 @@ closeBtn.onclick = function () {
   }
   Events[task.id] = task
   Events.push(task)
-  let pre = document.querySelector('#msg pre');
+  // let pre = document.querySelector('#msg pre');
   var string = ''
   Events.forEach(element => {
     string += 'Event Name: ' + element.EVENT + '\n' + 'Number of Hours: ' + element.HOURS + '\n' + 'Priority Level: ' + element.PRIORITY + '\n'
   });
   // pre.textContent += 'Event Name: ' + task.EVENT + '\n' + 'Number of Hours: ' + task.HOURS + '\n' + 'Priority Level: ' + task.PRIORITY + '\n';
   //pre.textContent = '\n' + JSON.stringify(Events, '\t', 2);
-  pre.textContent = string
+  // pre.textContent = string
   //saving to localStorage
   localStorage.setItem('MyMovieList', JSON.stringify(Events));
 

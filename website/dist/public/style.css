@@ -22,14 +22,10 @@
   padding: 15px 70px;
   font-size:16px;
 }
-.beat{
-  background-color: white;
-  /* background-color: #020631; */
-  border-color:#020631;
-}
 
 .container {
   padding-top: 75px;
+  padding-bottom: 50px;
 }
 .todo-list {
   margin: 20px 0;
