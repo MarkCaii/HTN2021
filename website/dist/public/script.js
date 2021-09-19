@@ -1,18 +1,6 @@
 var state = [];
 let Events = [];
 
-
-// function setDefaultState() {
-//   var id = generateID();
-//   var baseState = {};
-//   baseState[id] = {
-//     status: "new",
-//     id: id,
-//     title: "This site uses 🍪to keep track of your tasks"
-//   };
-//   syncState(baseState);
-// }
-
 function setDefaultState() {
   var id = generateID();
   var baseState = {};
@@ -30,35 +18,11 @@ function generateID() {
   return randLetter + Date.now();
 }
 
-// function pushToState(title, status, id) {
-//   var baseState = getState();
-//   baseState[id] = { id: id, title: title, status: status };
-//   syncState(baseState);
-// }
-
 function pushToState(title, hours, priority, id) {
   var baseState = getState();
   baseState[id] = { title: title, hours: hours, priority: priority, id: id, };
   syncState(baseState);
 }
-
-// function setToDone(id) {
-//   var baseState = getState();
-//   if (baseState[id].status === 'new') {
-//     baseState[id].status = 'done'
-//   } else {
-//     baseState[id].status =  'new';
-//   }
-
-//   syncState(baseState);
-// }
-
-// function deleteTodo(id) {
-//   console.log(id)
-//   var baseState = getState();
-//   delete baseState[id]
-//   syncState(baseState)
-// }
 
 function deleteTask(id) {
   console.log(id)
@@ -79,52 +43,21 @@ function getState() {
   return JSON.parse(localStorage.getItem("state"));
 }
 
-// function addItem(text, status, id, noUpdate) {
-//   var id = id ? id : generateID();
-//   var c = status === "done" ? "danger" : "";
-//   var item =
-//     '<li data-id="' +
-//     id +
-//     '" class="animated flipInX ' +
-//     c +
-//     '"><div class="task"><span class="close"><i class="fa fa-times"></i></span><label>' +
-//     text +
-//     "</label></div></li>";
-
-//   var isError = $(".form-control").hasClass("hidden");
-
-//   if (text === "") {
-//     $(".err")
-//       .removeClass("hidden")
-//       .addClass("animated bounceIn");
-//   } else {
-//     $(".err").addClass("hidden");
-//     $(".todo-list").append(item);
-//   }
-
-//   $(".refresh").removeClass("hidden");
-
-//   $(".no-items").addClass("hidden");
-
-//   $(".form-control")
-//     .val("")
-//     .attr("placeholder", "✍️ Add item...");
-//   setTimeout(function() {
-//     $(".todo-list li").removeClass("animated flipInX");
-//   }, 500);
-
-//   if (!noUpdate) {
-//     pushToState(text, "new", id);
-//   }
-// }
-
 function addItem(text, hours, priority, id) {
   var id = id ? id : generateID();
+  var strPriority = "";
+  if(parseInt(priority) == 2){
+    strPriority = "high";
+  }else if(parseInt(priority) == 1){
+    strPriority = "medium";
+  } else{
+    strPriority = "low";
+  }
   var item =
     '<li data-id="' +
     id +
     '"><div class="task"><span class="close"><i class="fa fa-times"></i></span><label>' +
-    text + ' ' + hours + ' ' + priority +
+    text + ' for ' + hours + ' hour, ' + strPriority + ' priority'
     "</label></div></li>";
 
   var isError = $(".form-control").hasClass("hidden");
@@ -196,10 +129,7 @@ sortBtn.onclick = function () {
   var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
   var yyyy = String(date.getFullYear());
   var currentTime = 8;
-  // console.log(date.toLocaleTimeString());
-  // console.log(date.toLocaleDateString());
-  // console.log(mm+dd+yyyy);
-  // console.log(date.getHours());
+
   Events.forEach(element => {
     var temp = parseInt(currentTime)
 
@@ -207,19 +137,17 @@ sortBtn.onclick = function () {
     var event = {
       'summary': element.EVENT,
       'start':{
-        // 'dateTime': '2021-09-19T09:00:00-07:00',
-        // 'timeZone': 'America/Los_Angeles',
+
         'dateTime': yyyy+'-'+mm+'-'+dd+'T'+String(temp).padStart(2,'0')+':'+'00:00-04:00',
       },
       'end': {
-        // 'dateTime': '2021-09-19T17:00:00-07:00',
-        // 'timeZone': 'America/Los_Angeles',
+
         'dateTime': yyyy+'-'+mm+'-'+dd+'T'+String(temp2).padStart(2,'0')+':'+'00:00-04:00',
       },
     };
     currentTime = parseInt(temp2)
     var request = gapi.client.calendar.events.insert({
-      'calendarId': 'rvu049umttfa8spbg8n5mumtkk@group.calendar.google.com',
+      'calendarId': 'primary',
       'resource': event
     });
 
@@ -228,32 +156,6 @@ sortBtn.onclick = function () {
     });
   });
   location.reload();
-    // var event = {
-    //   'summary': 'Google I/O 2015',
-    //   'start': {
-    //     'dateTime': '2021-09-19T09:00:00-07:00',
-    //     'timeZone': 'America/Los_Angeles'
-    //   },
-    //   'end': {
-    //     'dateTime': '2021-09-19T17:00:00-07:00',
-    //     'timeZone': 'America/Los_Angeles'
-    //   },
-    //   'reminders': {
-    //     'useDefault': false,
-    //     'overrides': [
-    //       {'method': 'email', 'minutes': 24 * 60},
-    //       {'method': 'popup', 'minutes': 10}
-    //     ]
-    //   }
-    // };
-    // var request = gapi.client.calendar.events.insert({
-    //   'calendarId': 'primary',
-    //   'resource': event
-    // });
-
-    // request.execute(function(event) {
-    //   appendPre('Event created: ' + event.summary);
-    // });
 }
 
 closeBtn.onclick = function () {
@@ -265,15 +167,10 @@ closeBtn.onclick = function () {
   }
   Events[task.id] = task
   Events.push(task)
-  // let pre = document.querySelector('#msg pre');
   var string = ''
   Events.forEach(element => {
     string += 'Event Name: ' + element.EVENT + '\n' + 'Number of Hours: ' + element.HOURS + '\n' + 'Priority Level: ' + element.PRIORITY + '\n'
   });
-  // pre.textContent += 'Event Name: ' + task.EVENT + '\n' + 'Number of Hours: ' + task.HOURS + '\n' + 'Priority Level: ' + task.PRIORITY + '\n';
-  //pre.textContent = '\n' + JSON.stringify(Events, '\t', 2);
-  // pre.textContent = string
-  //saving to localStorage
   localStorage.setItem('MyMovieList', JSON.stringify(Events));
 
   modal.style.display = "none";
