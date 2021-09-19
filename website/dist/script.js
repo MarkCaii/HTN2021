@@ -1,12 +1,25 @@
 var state = [];
+let Events = [];
+
+// function setDefaultState() {
+//   var id = generateID();
+//   var baseState = {};
+//   baseState[id] = {
+//     status: "new",
+//     id: id,
+//     title: "This site uses 🍪to keep track of your tasks"
+//   };
+//   syncState(baseState);
+// }
 
 function setDefaultState() {
   var id = generateID();
   var baseState = {};
   baseState[id] = {
-    status: "new",
+    title: "Example Task",
+    hours: "2",
+    priority: "high",
     id: id,
-    title: "This site uses 🍪to keep track of your tasks"
   };
   syncState(baseState);
 }
@@ -16,24 +29,37 @@ function generateID() {
   return randLetter + Date.now();
 }
 
-function pushToState(title, status, id) {
+// function pushToState(title, status, id) {
+//   var baseState = getState();
+//   baseState[id] = { id: id, title: title, status: status };
+//   syncState(baseState);
+// }
+
+function pushToState(title, hours, priority, id) {
   var baseState = getState();
-  baseState[id] = { id: id, title: title, status: status };
+  baseState[id] = { title: title, hours: hours, priority: priority, id: id, };
   syncState(baseState);
 }
 
-function setToDone(id) {
-  var baseState = getState();
-  if (baseState[id].status === 'new') {
-    baseState[id].status = 'done'
-  } else {
-    baseState[id].status =  'new';
-  }
+// function setToDone(id) {
+//   var baseState = getState();
+//   if (baseState[id].status === 'new') {
+//     baseState[id].status = 'done'
+//   } else {
+//     baseState[id].status =  'new';
+//   }
 
-  syncState(baseState);
-}
+//   syncState(baseState);
+// }
 
-function deleteTodo(id) {
+// function deleteTodo(id) {
+//   console.log(id)
+//   var baseState = getState();
+//   delete baseState[id]
+//   syncState(baseState)
+// }
+
+function deleteTask(id) {
   console.log(id)
   var baseState = getState();
   delete baseState[id]
@@ -52,16 +78,52 @@ function getState() {
   return JSON.parse(localStorage.getItem("state"));
 }
 
-function addItem(text, status, id, noUpdate) {
+// function addItem(text, status, id, noUpdate) {
+//   var id = id ? id : generateID();
+//   var c = status === "done" ? "danger" : "";
+//   var item =
+//     '<li data-id="' +
+//     id +
+//     '" class="animated flipInX ' +
+//     c +
+//     '"><div class="task"><span class="close"><i class="fa fa-times"></i></span><label>' +
+//     text +
+//     "</label></div></li>";
+
+//   var isError = $(".form-control").hasClass("hidden");
+
+//   if (text === "") {
+//     $(".err")
+//       .removeClass("hidden")
+//       .addClass("animated bounceIn");
+//   } else {
+//     $(".err").addClass("hidden");
+//     $(".todo-list").append(item);
+//   }
+
+//   $(".refresh").removeClass("hidden");
+
+//   $(".no-items").addClass("hidden");
+
+//   $(".form-control")
+//     .val("")
+//     .attr("placeholder", "✍️ Add item...");
+//   setTimeout(function() {
+//     $(".todo-list li").removeClass("animated flipInX");
+//   }, 500);
+
+//   if (!noUpdate) {
+//     pushToState(text, "new", id);
+//   }
+// }
+
+function addItem(text, hours, priority, id) {
   var id = id ? id : generateID();
-  var c = status === "done" ? "danger" : "";
   var item =
     '<li data-id="' +
     id +
-    '" class="animated flipInX ' +
-    c +
-    '"><div class="checkbox"><span class="close"><i class="fa fa-times"></i></span><label><span class="checkbox-mask"></span><input type="checkbox" />' +
-    text +
+    '"><div class="task"><span class="close"><i class="fa fa-times"></i></span><label>' +
+    text + ' ' + hours + ' ' + priority +
     "</label></div></li>";
 
   var isError = $(".form-control").hasClass("hidden");
@@ -87,7 +149,7 @@ function addItem(text, status, id, noUpdate) {
   }, 500);
 
   if (!noUpdate) {
-    pushToState(text, "new", id);
+    pushToState(text, hours, priority, id);
   }
 }
 
@@ -125,7 +187,24 @@ span.onclick = function() {
 }
 
 closeBtn.onclick = function() {
+  let task = {
+    id: Date.now(),
+    EVENT: document.getElementById('event').value,
+    HOURS: document.getElementById('time').value,
+    PRIORITY: document.getElementById('priorities').value
+  }
+  Events.push(task);
+  let pre = document.querySelector('#msg pre');
+  pre.textContent += 'Event Name: ' + task.EVENT + '\n' + 'Number of Hours: ' + task.HOURS + '\n' + 'Priority Level: ' + task.PRIORITY + '\n';
+  //pre.textContent = '\n' + JSON.stringify(Events, '\t', 2);
+  //saving to localStorage
+  localStorage.setItem('MyMovieList', JSON.stringify(Events));
+  
   modal.style.display = "none";
+  var title = document.getElementById("event").value
+  var hours = document.getElementById("time").value
+  var priority = document.getElementById("priorities").value
+  addItem(title, hours, priority)
 }
 
 window.onclick = function(event) {
@@ -187,7 +266,7 @@ $(function() {
       }, 500);
     }
 
-    deleteTodo(box.data().id)
+    deleteTask(box.data().id)
   });
 
   $(".form-control").keypress(function(e) {
@@ -246,76 +325,6 @@ $(document).ready(function() {
 
   Object.keys(state).forEach(function(todoKey) {
     var todo = state[todoKey];
-    addItem(todo.title, todo.status, todo.id, true);
+    addItem(todo.title, todo.hours, todo.priority, todo.id);
   });
-
-  var mins, secs, update;
-
-  init();
-  function init() {
-    (mins = 25), (secs = 59);
-  }
-
-
-  set();
-  function set() {
-    $(".mins").text(mins);
-  }
-
-
-  $("#start").on("click", start_timer);
-  $("#reset").on("click", reset);
-  $("#inc").on("click", inc);
-  $("#dec").on("click", dec);
-
-  function start_timer() {
-
-    set();
-
-    $(".dis").attr("disabled", true);
-
-    $(".mins").text(--mins);
-    $(".separator").text(":");
-    update_timer();
-
-    update = setInterval(update_timer, 1000);
-  }
-
-  function update_timer() {
-    $(".secs").text(secs);
-    --secs;
-    if (mins == 0 && secs < 0) {
-      reset();
-    } else if (secs < 0 && mins > 0) {
-      secs = 59;
-      --mins;
-      $(".mins").text(mins);
-    }
-  }
-
-
-  function reset() {
-    clearInterval(update);
-    $(".secs").text("");
-    $(".separator").text("");
-    init();
-    $(".mins").text(mins);
-    $(".dis").attr("disabled", false);
-  }
-
-
-  function inc() {
-    mins++;
-    $(".mins").text(mins);
-  }
-
-
-  function dec() {
-    if (mins > 1) {
-      mins--;
-      $(".mins").text(mins);
-    } else {
-      alert("This is the minimum limit.");
-    }
-  }
 });
