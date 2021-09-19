@@ -10,24 +10,23 @@
     font-size: 13px;
   }
 
-  
-  /* changes here */
-  .labell {
-    color: white;
-    padding: 8px;
-  }
-  
-  .butt{
-    background-color: white;
-    padding: 15px 70px;
-    font-size:16px;
-  }
-  .beat{
-    /* background-color: #020631; */
-    background-color: white;
-    border-color:#020631;
-  }
-  /*  */
+/* changes here */
+.labell {
+  color: white;
+  padding: 8px;
+}
+
+.butt{
+  background-color: white;
+  padding: 15px 70px;
+  font-size:16px;
+}
+.beat{
+  background-color: white;
+  /* background-color: #020631; */
+  border-color:#020631;
+}
+
 .container {
   padding-top: 75px;
 }

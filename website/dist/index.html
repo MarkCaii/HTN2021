@@ -114,7 +114,7 @@
          </svg>
       </div>
 
-      <body class="body">
+      <body class="body">  
          <div class="container">
             <div class="today"></div>
             <div class="row">
@@ -162,7 +162,7 @@
                               //for display purposes only
                               console.warn('added', { Events });
                               let pre = document.querySelector('#msg pre');
-                              pre.textContent += '\n' + 'Event Name: ' + movie.EVENT + '\n' + 'Number of Hours: ' + movie.HOURS;
+                              pre.textContent = 'Event Name: ' + movie.EVENT + '\n' + 'Number of Hours: ' + movie.HOURS + '\n';
                               //pre.textContent = '\n' + JSON.stringify(Events, '\t', 2);
 
 
@@ -190,8 +190,8 @@
             <div class="infoForm">
                <div class="modal-content">
                   <div class="modal-header">
-                     <span class="close">&times;</span>
-                     <h2>Modal Header</h2>
+                    <span class="close">&times;</span>
+                    <h2>Modal Header</h2>
                   </div>
                   <div class="modal-body">
                      Placeholder text
