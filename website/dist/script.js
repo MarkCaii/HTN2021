@@ -144,7 +144,7 @@ function addItem(text, hours, priority, id) {
   $(".form-control")
     .val("")
     .attr("placeholder", "✍️ Add item...");
-  setTimeout(function() {
+  setTimeout(function () {
     $(".todo-list li").removeClass("animated flipInX");
   }, 500);
 
@@ -154,16 +154,16 @@ function addItem(text, hours, priority, id) {
 }
 
 function refresh() {
-  $(".todo-list li").each(function(i) {
+  $(".todo-list li").each(function (i) {
     $(this)
       .delay(70 * i)
-      .queue(function() {
+      .queue(function () {
         $(this).addClass("animated bounceOutLeft");
         $(this).dequeue();
       });
   });
 
-  setTimeout(function() {
+  setTimeout(function () {
     $(".todo-list li").remove();
     $(".no-items").removeClass("hidden");
     $(".err").addClass("hidden");
@@ -177,16 +177,16 @@ var btn = document.getElementById("addTaskButton");
 var span = document.getElementsByClassName("close")[0];
 
 var closeBtn = document.getElementById("btn");
- 
-btn.onclick = function() {
+
+btn.onclick = function () {
   modal.style.display = "block";
 }
 
-span.onclick = function() {
+span.onclick = function () {
   modal.style.display = "none";
 }
 
-closeBtn.onclick = function() {
+closeBtn.onclick = function () {
   let task = {
     id: Date.now(),
     EVENT: document.getElementById('event').value,
@@ -194,12 +194,13 @@ closeBtn.onclick = function() {
     PRIORITY: document.getElementById('priorities').value
   }
   Events.push(task);
+  document.forms[0].reset();
   let pre = document.querySelector('#msg pre');
   pre.textContent += 'Event Name: ' + task.EVENT + '\n' + 'Number of Hours: ' + task.HOURS + '\n' + 'Priority Level: ' + task.PRIORITY + '\n';
   //pre.textContent = '\n' + JSON.stringify(Events, '\t', 2);
   //saving to localStorage
   localStorage.setItem('MyMovieList', JSON.stringify(Events));
-  
+
   modal.style.display = "none";
   var title = document.getElementById("event").value
   var hours = document.getElementById("time").value
@@ -207,24 +208,24 @@ closeBtn.onclick = function() {
   addItem(title, hours, priority)
 }
 
-window.onclick = function(event) {
+window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
 }
 
-$(function() {
+$(function () {
   var err = $(".err"),
     formControl = $(".form-control"),
     isError = formControl.hasClass("hidden");
 
   if (!isError) {
-    formControl.blur(function() {
+    formControl.blur(function () {
       err.addClass("hidden");
     });
   }
 
-  $(".add-btn").on("click", function() {
+  $(".add-btn").on("click", function () {
     var itemVal = $(".form-control").val();
     addItem(itemVal);
     formControl.focus();
@@ -232,7 +233,7 @@ $(function() {
 
   $(".refresh").on("click", refresh);
 
-  $(".todo-list").on("click", 'input[type="checkbox"]', function() {
+  $(".todo-list").on("click", 'input[type="checkbox"]', function () {
     var li = $(this)
       .parent()
       .parent()
@@ -242,26 +243,26 @@ $(function() {
 
     setToDone(li.data().id);
 
-    setTimeout(function() {
+    setTimeout(function () {
       li.removeClass("animated flipInX");
     }, 500);
   });
 
-  $(".todo-list").on("click", ".close", function() {
+  $(".todo-list").on("click", ".close", function () {
     var box = $(this)
       .parent()
       .parent();
 
     if ($(".todo-list li").length == 1) {
       box.removeClass("animated flipInX").addClass("animated                bounceOutLeft");
-      setTimeout(function() {
+      setTimeout(function () {
         box.remove();
         $(".no-items").removeClass("hidden");
         $(".refresh").addClass("hidden");
       }, 500);
     } else {
       box.removeClass("animated flipInX").addClass("animated bounceOutLeft");
-      setTimeout(function() {
+      setTimeout(function () {
         box.remove();
       }, 500);
     }
@@ -269,7 +270,7 @@ $(function() {
     deleteTask(box.data().id)
   });
 
-  $(".form-control").keypress(function(e) {
+  $(".form-control").keypress(function (e) {
     if (e.which == 13) {
       var itemVal = $(".form-control").val();
       addItem(itemVal);
@@ -315,7 +316,7 @@ var randomWord =
 
 todayContainer.innerHTML = randomWord + n;
 
-$(document).ready(function() {
+$(document).ready(function () {
   var state = getState();
 
   if (!state) {
@@ -323,7 +324,7 @@ $(document).ready(function() {
     state = getState();
   }
 
-  Object.keys(state).forEach(function(todoKey) {
+  Object.keys(state).forEach(function (todoKey) {
     var todo = state[todoKey];
     addItem(todo.title, todo.hours, todo.priority, todo.id);
   });

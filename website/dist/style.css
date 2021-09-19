@@ -1,5 +1,5 @@
 .body {
-  background: #020631;
+  background: #41025f;
   font: 14px 'Nunito', sans-serif;
 }
 .today{
@@ -445,4 +445,14 @@ svg {
 
 .task {
   padding: 2px;
+}
+.footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #452579;
+  color: white;
+  text-align:center;
+  opacity: 80%;
 }
