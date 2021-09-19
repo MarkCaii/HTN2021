@@ -114,7 +114,7 @@
          </svg>
       </div>
 
-      <body class="body">
+      <body class="body">  
          <div class="container">
             <div class="today"></div>
             <div class="row">
@@ -122,7 +122,7 @@
                   <div class="add-control">
                      <div class="form-group has-feedback">
                         <!-- <input type="text" class="form-control" placeholder="✍️ Add item..." /> -->
-                        <button class="form-control">✍️ Add item</button>
+                        <button id="addTaskButton" class="form-control">✍️ Add item</button>
                         <i class="fa fa-plus form-control-feedback add-btn" title="Add item"></i>
                      </div>
                   </div>
@@ -131,6 +131,19 @@
                   <p class="no-items text-muted text-center hidden"><i class="fa fa-ban"></i></p>
                   <ul class="todo-list">
                   </ul>
+               </div>
+            </div>
+         </div>
+         <div id="taskInfoForm" class="infoFormContainer">
+            <div class="infoForm">
+               <div class="modal-content">
+                  <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>Modal Header</h2>
+                  </div>
+                  <div class="modal-body">
+                     Placeholder text
+                  </div>
                </div>
             </div>
          </div>
