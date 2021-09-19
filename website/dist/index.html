@@ -114,7 +114,7 @@
          </svg>
       </div>
 
-      <body class="body">  
+      <body class="body">
          <div class="container">
             <div class="today"></div>
             <div class="row">
@@ -146,8 +146,8 @@
             <div class="infoForm">
                <div class="modal-content">
                   <div class="modal-header">
-                    <span class="close">&times;</span>
-                    <h2>Add Task</h2>
+                     <span class="close">&times;</span>
+                     <h2>Add Task</h2>
                   </div>
                   <div class="modal-body">
                      <form>
@@ -160,16 +160,16 @@
                            <label for="time" class="labell">Time</label>
                            <input type="number" id="time" placeholder="Time in Hours" />
                         </div>
-                        <div class ="formBox">
+                        <div class="formBox">
                            <form action="/action_page.php">
                               <label for="priorities">Priority:</label>
                               <select name="priorities" id="priorities">
-                                <option value="high">High</option>
-                                <option value="medium">Medium</option>
-                                <option value="low">Low</option>
+                                 <option value="high">High</option>
+                                 <option value="medium">Medium</option>
+                                 <option value="low">Low</option>
                               </select>
                               <br><br>
-                            </form>
+                           </form>
                         </div>
                         <div class="formBox">
                            <button id="btn" class="butt">Click to Add</button>
@@ -181,19 +181,20 @@
                         const addEvents = (ev) => {
                            ev.preventDefault();  //to stop the form submitting
 
-                           let movie = {
+                           let task = {
                               id: Date.now(),
                               EVENT: document.getElementById('event').value,
-                              HOURS: document.getElementById('time').value
+                              HOURS: document.getElementById('time').value,
+                              PRIORITY: document.getElementById('priorities').value
                            }
-                           Events.push(movie);
+                           Events.push(task);
                            document.forms[0].reset(); // to clear the form for the next entries
                            //document.querySelector('form').reset();
 
                            //for display purposes only
                            console.warn('added', { Events });
                            let pre = document.querySelector('#msg pre');
-                           pre.textContent += 'Event Name: ' + movie.EVENT + '\n' + 'Number of Hours: ' + movie.HOURS + '\n';
+                           pre.textContent += 'Event Name: ' + task.EVENT + '\n' + 'Number of Hours: ' + task.HOURS + '\n' + 'Priority Level: ' + task.PRIORITY + '\n';
                            //pre.textContent = '\n' + JSON.stringify(Events, '\t', 2);
 
 
