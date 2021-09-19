@@ -196,8 +196,13 @@ closeBtn.onclick = function () {
   Events.push(task);
   document.forms[0].reset();
   let pre = document.querySelector('#msg pre');
-  pre.textContent += 'Event Name: ' + task.EVENT + '\n' + 'Number of Hours: ' + task.HOURS + '\n' + 'Priority Level: ' + task.PRIORITY + '\n';
+  var string = ''
+  Events.forEach(element => {
+    string += 'Event Name: ' + element.EVENT + '\n' + 'Number of Hours: ' + element.HOURS + '\n' + 'Priority Level: ' + element.PRIORITY + '\n'
+  });
+  // pre.textContent += 'Event Name: ' + task.EVENT + '\n' + 'Number of Hours: ' + task.HOURS + '\n' + 'Priority Level: ' + task.PRIORITY + '\n';
   //pre.textContent = '\n' + JSON.stringify(Events, '\t', 2);
+  pre.textContent = string
   //saving to localStorage
   localStorage.setItem('MyMovieList', JSON.stringify(Events));
 
