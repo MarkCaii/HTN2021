@@ -26,6 +26,8 @@
 .container {
   padding-top: 75px;
   padding-bottom: 50px;
+  text-align: center;
+  margin: auto;
 }
 .todo-list {
   margin: 20px 0;
@@ -325,14 +327,15 @@ a:focus, a:hover {
 }
 
 .infoFormContainer{
+  vertical-align: center;
   display: none; /* Hidden by default */
   align-items: center;
+  text-align: center;
   justify-content: center;
   position: fixed;
-  z-index: 1; /* Sit on top */
-  left: 25%;
-  top: 0;
-  width: 50%; /* Full width */
+  left: 0%;
+  top: 0%;
+  width: 100%; /* Full width */
   height: 100%; /* Full height */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   -webkit-animation-name: fadeIn; /* Fade in the background */
@@ -342,7 +345,8 @@ a:focus, a:hover {
 }
 
 .infoForm {
-  top: 0;
+
+  top: 25%;
   left: 25%;
   width: 100%;
   max-height: 100%;
@@ -453,4 +457,10 @@ svg {
   color: white;
   text-align:center;
   opacity: 80%;
+}
+
+.calendar{
+  display: block;
+  text-align: center;
+  margin: auto;
 }
