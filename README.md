@@ -14,7 +14,7 @@ You will need to have NodeJS
 
 
 ## Authors
-[MarkCaii](https://github.com/MarkCaii)
-[JeffersonFu09](https://github.com/JeffersonFu09)
+* [MarkCaii](https://github.com/MarkCaii)
+* [JeffersonFu09](https://github.com/JeffersonFu09)
 
 ## Acknowledgements
