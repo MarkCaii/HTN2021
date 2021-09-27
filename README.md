@@ -4,7 +4,7 @@ Schedule Master is a web application that takes the user's inputs in the form of
 
 ## Screenshots
 
-![alt text](https://github.com/MarkCaii/Schedule-Master/blob/master/screenshots/schedule%20master%20(2).PNG?raw=true)
+![alt text](https://github.com/MarkCaii/Schedule-Master/blob/master/screenshots/schedule%20master%20(2).png?raw=true)
 ![alt text](https://github.com/MarkCaii/Schedule-Master/blob/master/screenshots/add%20task%20(2).PNG?raw=true)
 ![alt text](https://github.com/MarkCaii/Schedule-Master/blob/master/screenshots/calendar%20preview.PNG?raw=true)
 
