@@ -8,11 +8,16 @@ Schedule Master is a web application that takes the user's inputs in the form of
 Download the file extract it to the directory of your choice and then import the project into the code editor of your choice.
 
 ### Installing
-You will need to have NodeJS 
+You will need to have NodeJS install on your computer.
+
+1. Download and unzip the files
+2. Import the project into a code editor of your choice
+3. Navigate to the webiste/dist folder on the terminal
+4. Run the command 'node app.js'
+5. Test the web application!
 
 ## Built With
 HTML, CSS, JavaScript, Node.js, Express, Google Cloud API.
-
 
 ## Authors
 * [MarkCaii](https://github.com/MarkCaii)
