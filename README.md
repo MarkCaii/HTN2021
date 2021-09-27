@@ -28,4 +28,4 @@ HTML, CSS, JavaScript, Node.js, Express, Google Cloud API.
 * [JeffersonFu09](https://github.com/JeffersonFu09)
 
 ## Acknowledgements
-[Template](https://codepen.io/Quentincls/pen/bvBrpo) that we updated to build our web application
+[Template](https://codepen.io/Quentincls/pen/bvBrpo) that we updated to build Schedule Master
